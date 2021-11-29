@@ -1,0 +1,1 @@
+// Object is a pair {key :  value}.
