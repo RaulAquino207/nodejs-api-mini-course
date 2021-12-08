@@ -1,0 +1,23 @@
+Node é extremamente relevante no mundo do JS, 
+trouxe uma revolução no JS/WEB. Muitas empresas 
+usam NODE como solução para o backend
+NODE - Ambiente de execução de JS do lado servidor
+(não esta rodando dentro do browser)
+
+Dentro do Node um arquivo representa um modulo, 
+usando Node como servidor para prover página,
+prover um arquivo, prover video, uma imagem e etc, 
+gerar conteúdo dinâmico e também pode servir
+como a sua API do seu sistema(ele é muito usado para isso).
+A organização backend em Node, se da
+através de pastas e arquivos e cada arquivo 
+representa um módulo(um módulo tem uma certa 
+interioridade, ou seja, ele não deixa 
+tudo aquilo que se escreve dentro dele 
+disponivel para todo mundo, se tem a priori, 
+tudo o que foi escrito dentro de um módulo ele 
+fica visível apenas dentro do módulo, 
+para que seja tornado algo público/disponível 
+para outro arquivo será preciso utilizar 
+de uma das ideias do Node que é exportar 
+algo e de importar algo).
