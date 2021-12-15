@@ -1,4 +1,8 @@
 const mysql = require('mysql2/promise');
+const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
+
+dotenv.config({path : 'src/.env'});
 
 async function connect(){
 
@@ -6,7 +10,7 @@ async function connect(){
         return global.connection;
     }
     
-    const connection = await mysql.createConnection("mysql://root:password@localhost:3306/curso_lead");
+    const connection = await mysql.createConnection(`mysql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}:3306/${process.env.DATABASE}`);
     console.log('conectou');
     global.connection = connection;
     return connection
@@ -40,4 +44,32 @@ async function deletarLoja(id){
     return conn.query(sql);
 }
 
-module.exports = {cadastrarLoja, trazerLojas, alterarLoja, deletarLoja}
+async function login(email, password){
+    // console.log("🚀 ~ file: db.js ~ line 48 ~ login ~ email, password", email, password);
+    if(!email || !password){
+        return {message : 'Please provide an email and password'}
+    }
+
+    const conn = await connect();
+    const sql = `SELECT * FROM curso_lead.tbstore WHERE email = '${email}';`
+    
+    try {
+        const result = await conn.query(sql);
+        console.log(result[0][0]);
+        if(result.length == 0 || password != result[0][0].password){
+            return {message : 'Email or password is incorrect'}
+        } else {
+            const id = result[0][0].store_id;
+            const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+                expiresIn : process.env.JWT_EXPIRES_IN
+            });
+
+            console.log(`The token is : ${token}`);
+            return { token, id }
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+module.exports = {cadastrarLoja, trazerLojas, alterarLoja, deletarLoja, login}

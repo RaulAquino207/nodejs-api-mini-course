@@ -24,5 +24,11 @@ module.exports = {
         res.send(loja);
     },
 
+    async login(req, res){
+        const { email, password } = req.body;
+        const result = await db.login(email, password);
+        res.send(result);
+    }
+
 
 }

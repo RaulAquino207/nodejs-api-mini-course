@@ -21,4 +21,6 @@ routes.put('/loja/:id', storeController.alterarLoja);
 
 routes.delete('/loja/:id', storeController.deletarLoja);
 
+routes.post('/login', storeController.login);
+
 module.exports = routes;
