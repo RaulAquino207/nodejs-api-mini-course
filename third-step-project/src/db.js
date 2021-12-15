@@ -17,6 +17,26 @@ async function connect(){
 }
 connect();
 
+async function cadastrarProduto(produto) {
+    const { product_name, product_image, minimum_quantity, current_quantity, section_id, store_id } = produto;
+
+    const conn = await connect();
+    const sql = `INSERT INTO tbproduct(product_name, product_image, minimum_quantity, current_quantity, section_id, store_id) VALUES (?,?,?,?,?,?);`;
+    const values = [ product_name, product_image, minimum_quantity, current_quantity, section_id, store_id ];
+
+    return conn.query(sql, values);
+}
+
+async function cadastrarSessao(sessao) {
+    const { section_name, store_id } = sessao;
+
+    const conn = await connect();
+    const sql = `INSERT INTO curso_lead.tbsection(section_name, store_id) VALUES (?,?);`;
+    const values = [ section_name, store_id ];
+
+    return conn.query(sql, values);
+}
+
 async function cadastrarLoja(loja){
     const { store_name, store_owner, email, password } = loja;
     const conn = await connect();
@@ -72,4 +92,4 @@ async function login(email, password){
     }
 }
 
-module.exports = {cadastrarLoja, trazerLojas, alterarLoja, deletarLoja, login}
+module.exports = {cadastrarLoja, trazerLojas, alterarLoja, deletarLoja, login, cadastrarProduto, cadastrarSessao}
